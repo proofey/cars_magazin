@@ -1,0 +1,37 @@
+{% load static %}
+
+<nav class="navbar sticky-top navbar-expand-lg mynavbar shadowbox">
+    <div class="container-fluid">
+        <a class="navbar-brand mynavbar" href="{% url 'home-page' %}">
+        <img src="{% static 'images/logo.svg' %}" alt="" width="40" height="24" class="d-inline-block align-text-top">
+        Cars Magazin
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#NavbarCollapse" aria-controls="NavbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <img class="" src="{% static 'images/navbarmenu.svg' %}" alt="">
+            </span>
+        </button>
+        <div class="collapse navbar-collapse" id="NavbarCollapse">
+            <ul class="navbar-nav ms-auto nav-tabs">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link mynavbar h5" href="{% url 'profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mynavbar h5" href="#">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mynavbar h5" href="{% url 'logout' %}">Log Out</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link mynavbar h5" href="{% url 'registration' %}">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mynavbar h5" href="{% url 'login' %}">Log In</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

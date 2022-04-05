@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'user_profile/style.css' %}">
+{% endblock style %}
+
+
+{% block title %}
+Registration
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="modal fade" id="registrationModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered text-center">
+        <div class="modal-content myform">
+            <div class="modal-header justify-content-center" id="formError">
+                <h3>Join for free</h3>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'registration' %}" id="registrationForm">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn b-yes mt-2 me-1" type="submit">Sign Up</button>
+                    <a class="btn b-no mt-2 ms-1" href="{% url 'home-page' %}">Cancel</a>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <h6>If you already have an accaunt you can <a href="{% url 'login' %}">Log In</a></h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+    <script src="{% static 'user_profile/registration.js' %}"></script>
+{% endblock js %}

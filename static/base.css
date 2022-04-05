@@ -1,0 +1,13 @@
+.mynavbar {
+    background-color: blueviolet;
+    color: azure;
+}
+
+.mynavbar :hover {
+    color: #ff8c00;
+    text-shadow: 2px 2px 2px #CE5937;
+}
+
+.shadowbox { 
+    box-shadow: 0px 0px 6px 5px #000000;
+}
