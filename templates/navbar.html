@@ -15,6 +15,9 @@
             <ul class="navbar-nav ms-auto nav-tabs">
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
+                    <a class="nav-link mynavbar h5" href="{% url 'home-page' %}">Home</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link mynavbar h5" href="{% url 'profile' %}">Profile</a>
                 </li>
                 <li class="nav-item">
