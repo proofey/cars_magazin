@@ -15,10 +15,10 @@ Profile
 
 {% block content %}
 
-<div class="container-fluid mt-5">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-12 col-lg-4 me-5 mb-5 text-center profile">
-            <div class="row">
+        <div class="col-12 col-lg-4 me-5 mb-5 text-center">
+            <div class="row profile">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-12 mt-3 mb-3">
@@ -44,6 +44,28 @@ Profile
                     <button class="btn profile mx-1">btn2</button>
                     <button class="btn profile mx-1">btn3</button>
                     <button class="btn profile mx-1">btn4</button>
+                </div>
+                <div class="col-12 mb-3 text-center profile">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mt-3 mb-3">
+                            {% thumbnail profile.image "270x270" crop="center" as im %}
+                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                            {% endthumbnail %}
+                        </div>
+                        <h3 class="col-12 col-sm-6 mt-3 mb-3">Title</h3>
+                        <h5 class="col-12 col-sm-12 mt-3 mb-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut perferendis minus sint nostrum reprehenderit dolorem quisquam voluptatum. Voluptas magnam, quibusdam exercitationem, perferendis nemo eaque, animi esse culpa commodi minus corporis.</h5>
+                    </div>
+                </div>
+                <div class="col-12 mb-3 text-center profile">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mt-3 mb-3">
+                            {% thumbnail profile.image "270x270" crop="center" as im %}
+                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                            {% endthumbnail %}
+                        </div>
+                        <h3 class="col-12 col-sm-6 mt-3 mb-3">Title</h3>
+                        <h5 class="col-12 col-sm-12 mt-3 mb-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut perferendis minus sint nostrum reprehenderit dolorem quisquam voluptatum. Voluptas magnam, quibusdam exercitationem, perferendis nemo eaque, animi esse culpa commodi minus corporis.</h5>
+                    </div>
                 </div>
                 <div class="col-12 mb-3 text-center profile">
                     <div class="row">
