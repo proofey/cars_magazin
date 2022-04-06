@@ -3,9 +3,12 @@
     color: azure;
 }
 
-.mynavbar :hover {
+ .mynavbar:hover {
     color: #ff8c00;
-    text-shadow: 2px 2px 2px #CE5937;
+}
+
+.active-tab{
+    color: #ff8c00;
 }
 
 .shadowbox { 
