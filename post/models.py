@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from user_profile.models import Profile
 
@@ -64,6 +65,17 @@ class Post(models.Model):
     new_importation = models.BooleanField(verbose_name='New importation', blank=True, null=True)
     located_at = models.CharField(verbose_name='Located at', max_length=30)
     more_info = models.TextField(verbose_name='More information', blank=True, null=True)
+
+    main_picture = models.ImageField(verbose_name='Main picture', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_2 = models.ImageField(verbose_name='2', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_3 = models.ImageField(verbose_name='3', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_4 = models.ImageField(verbose_name='4', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_5 = models.ImageField(verbose_name='5', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_6 = models.ImageField(verbose_name='6', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_7 = models.ImageField(verbose_name='7', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_8 = models.ImageField(verbose_name='8', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_9 = models.ImageField(verbose_name='9', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
+    picture_10 = models.ImageField(verbose_name='10', upload_to='post_pictures', blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])
 
     extras = models.ManyToManyField(Extra, blank=True)
     coupe = models.ForeignKey(Coupe, on_delete=models.PROTECT, null=True)
