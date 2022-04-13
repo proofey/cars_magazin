@@ -1,6 +1,7 @@
 .b-yes, .b-no, .profile{
     border: none;
     box-shadow: 0px 0px 6px 2px #8a2be2;
+    background-color: white;
 }
 
 .b-yes:hover{
