@@ -34,7 +34,22 @@ body{
     box-shadow: 0px 0px 6px 2px #8a2be2;
     background-color: white;
 }
+.post{
+    height: 25rem;
+    overflow: hidden;
+}
+
+/* prevent overflow text */
+.pot{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .post:hover{
     box-shadow: 0px 0px 10px 5px #8a2be2;
+}
+.myimg{
+    width: 100%;
+    object-fit: contain;
 }
