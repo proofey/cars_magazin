@@ -27,7 +27,7 @@ class Coupe(models.Model):
         return self.type
 
 class Gearbox(models.Model):
-    type = models.CharField(verbose_name='Gearbox', max_length=30)
+    type = models.CharField(verbose_name='Transmission', max_length=30)
 
     def __str__(self):
         return self.type
