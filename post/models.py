@@ -53,7 +53,7 @@ class NumberOfDoors(models.Model):
 
 
 class Post(models.Model):
-    author = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     model = models.CharField(verbose_name='Model', max_length=100)
     price = models.IntegerField(verbose_name='Price')
     price_negotiable = models.BooleanField(verbose_name='Price negotiable', blank=True, null=True)

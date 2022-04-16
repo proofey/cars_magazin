@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
 {% block style %}
@@ -12,8 +13,14 @@ HOME
 
 
 {% block content %}
-    <div class="container">
-        <h1>HELLO!</h1>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            {% for post in posts %}
+                <div class="post">
+                    {% include 'post/post.html' %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
 

@@ -12,6 +12,34 @@ body{
     background-color: #e9e9e9;   
 }
 
+@media only screen and (max-width: 600px){
+    .post, .profile-post{
+        width: auto;
+        margin-bottom: 7%;
+    }
+
+}
+
+@media only screen and (min-width: 600px){
+    .post, .profile-post{
+        width: 47%;
+        margin: 1.5%;
+    }
+}
+
+@media only screen and (min-width: 922px){
+    .post{
+        width: 23%;
+        margin: 1%;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .profile-post{
+        width: 23%;
+        margin: 1%;
+    }
+}
 .mynavbar {
     background-color: blueviolet;
     color: azure;
@@ -29,17 +57,17 @@ body{
     box-shadow: 0px 0px 6px 5px #000000;
 }
 
-.post, .myform, .b-yes, .b-no, .profile{
+.post, .profile-post, .myform, .b-yes, .b-no, .profile{
     border: none;
     box-shadow: 0px 0px 6px 2px #8a2be2;
     background-color: white;
 }
-.post{
+.post, .profile-post{
     height: 25rem;
     overflow: hidden;
 }
 
-.post:hover{
+.post:hover, .profile-post:hover{
     box-shadow: 0px 0px 10px 5px #8a2be2;
 }
 
@@ -74,3 +102,8 @@ body{
     border-color: #8a2be2;
 }
 
+#div_id_extras{
+    height: 10rem;
+    overflow: scroll;
+    border: solid 1px #8a2be2;
+}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-
-from user_profile.models import Profile
+from post.models import Post
+from . models import Profile
 from . forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
@@ -9,10 +9,11 @@ from django.http import HttpResponse
 
 def my_profile(request):
     profile = Profile.objects.get(user=request.user)
-
+    posts = Post.objects.filter(author=request.user.profile)
 
     return render(request, 'user_profile/profile.html', {
-        'profile': profile
+        'profile': profile,
+        'posts': posts
     })
 
 
