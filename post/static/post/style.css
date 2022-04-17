@@ -76,6 +76,12 @@
 /* --------------------- End of media --------------- */
 
 
+
+.post-menu{
+    display: flex;
+    justify-content: right;
+    text-align: right;
+}
 .post-title{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -84,13 +90,23 @@
     margin-bottom: 20px;
 }
 
-.post-details{
+.post-details, .dropdown-menu{
     border: none;
     box-shadow: 0px 0px 6px 2px #8a2be2;
     background-color: white;
     overflow: hidden;
 }
-
+.dropdown-menu{
+    text-align: center;
+}
+.post-update:hover{
+    color: blue;
+    font-size: x-large;
+}
+.post-delete:hover{
+    color: red;
+    font-size: x-large;
+}
 .post-main-picture, .post-picture{
     display: flex;
     justify-content: center;

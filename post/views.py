@@ -26,3 +26,9 @@ def post_details(request, id):
     return render(request, 'post/post_details.html', {
         'post': post
     })
+
+def delete_post(request, id):
+    post = Post.objects.get(pk=id)
+    if request.user.profile == post.author:
+        post.delete()
+        return redirect('home-page')

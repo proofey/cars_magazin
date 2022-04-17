@@ -17,6 +17,15 @@ Post Details
 
 <div class="container my-5">
     <div class="row post-details">
+        {% if request.user.profile == post.author %}
+        <div class="post-menu dropdown">
+            <a href="#" id="postMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
+            <ul class="dropdown-menu" aria-labelledby="postMenu">
+                <li><a class="post-update" href="">Update</a></li>
+                <li><a class="post-delete" href="{% url 'delete-post' post.pk %}">Delete</a></li>
+            </ul>
+        </div>
+        {% endif %}
         <h1 class="post-model">{{ post.model }}</h1>
         <h1 class="post-price">{{ post.price }}${% if post.price_negotiable is True %} / Price negotiable{% endif %}</h1>
         <h3>{% if post.new_importation is True %}New Importation{% endif %}</h3>
