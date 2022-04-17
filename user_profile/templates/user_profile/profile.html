@@ -17,32 +17,24 @@ Profile
 
 <div class="container-fluid mt-5">
     <div class="row">
-        <div class="col-12 col-lg-4 me-5 mb-5 text-center">
-            <div class="row profile mx-1">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-12 mt-3 mb-3">
-                            {% thumbnail profile.image "270x270" crop="center" as im %}
-                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-                            {% endthumbnail %}
-                        </div>
-                        <h1 class="col-12 col-sm-6 col-lg-12 mt-3 mb-3">{{ profile.user }}</h1>
-                        <div class="col-12 col-md-6 col-lg-12 mb-3">
-                            <button class="btn profile mx-1">btn1</button>
-                            <button class="btn profile mx-1">btn2</button>
-                            <button class="btn profile mx-1">btn3</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="profile">
+            {% thumbnail profile.image "200x200" crop="center" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+            {% endthumbnail %}
+            <h1>{{ profile.user }}</h1>
+            <div class="profile-btns">
+                <button class="btn mybtn">btn1</button>
+                <button class="btn mybtn">btn2</button>
+                <button class="btn mybtn">btn3</button>
             </div>
         </div>
-        <div class="col-12 col-lg-7">
+        <div class="profile-content">
             <div class="row">
-                <div class="col-12 mb-3 text-center">
-                    <a href="{% url 'new-post' %}" class="btn profile mx-1">Post</a>
-                    <a class="btn profile mx-1">My Posts</a>
-                    <a class="btn profile mx-1">btn3</a>
-                    <a class="btn profile mx-1">btn4</a>
+                <div class="profile-content-btns">
+                    <a href="{% url 'new-post' %}" class="btn mybtn">Post</a>
+                    <a class="btn mybtn">My Posts</a>
+                    <a class="btn mybtn">btn3</a>
+                    <a class="btn mybtn">btn4</a>
                 </div>
                 {% for post in posts %}
                     <div class="profile-post">

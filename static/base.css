@@ -1,3 +1,5 @@
+/* Cool font */
+
 body{
     font-family: Georgia, serif;
     font-size: 25px;
@@ -12,10 +14,15 @@ body{
     background-color: #e9e9e9;   
 }
 
+/* --------------------Media ---------------------------------------- */
+
 @media only screen and (max-width: 600px){
     .post, .profile-post{
         width: auto;
         margin-bottom: 7%;
+    }
+    .profile{
+        width: 100%;
     }
 
 }
@@ -27,10 +34,26 @@ body{
     }
 }
 
+@media only screen and (min-width: 768px){
+    .profile{
+        width: 50%;
+        margin: auto;
+    }
+}
+
 @media only screen and (min-width: 922px){
     .post{
         width: 23%;
         margin: 1%;
+    }
+
+    .profile{
+        width: 30%;
+        margin-top: 75px;
+    }
+
+    .profile-content{
+        width: 70%;
     }
 }
 
@@ -39,7 +62,22 @@ body{
         width: 23%;
         margin: 1%;
     }
+
+    .profile{
+        width: 20%;
+        margin-top: 75px;
+    }
+
+    .profile-content{
+        width: 80%;
+    }
 }
+
+/* ----------------------------- End of Media ----------------------------------------- */
+
+
+
+
 .mynavbar {
     background-color: blueviolet;
     color: azure;
@@ -57,12 +95,12 @@ body{
     box-shadow: 0px 0px 6px 5px #000000;
 }
 
-.post, .profile-post, .myform, .b-yes, .b-no, .profile{
+.post, .profile-post, .myform, .b-yes, .b-no, .profile, .mybtn{
     border: none;
     box-shadow: 0px 0px 6px 2px #8a2be2;
     background-color: white;
 }
-.post, .profile-post{
+.post, .profile-post, .profile{
     height: 25rem;
     overflow: hidden;
 }
@@ -78,6 +116,10 @@ body{
     text-overflow: ellipsis;
 }
 
+.mybtn{
+    margin: 5px;
+}
+
 /* Yes and No buttons */
 .b-yes:hover{
     color: #008000;
@@ -88,22 +130,3 @@ body{
     box-shadow: 0px 0px 6px 5px #ff0000;
 }
 
-::-webkit-file-upload-button {
-    opacity: 0;
-  }
-
-#div_id_main_picture, #div_id_picture_2, #div_id_picture_3, #div_id_picture_4, #div_id_picture_5, #div_id_picture_6,
-#div_id_picture_7, #div_id_picture_8, #div_id_picture_9, #div_id_picture_10{
-    border: solid 1px #8a2be2;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-.numberinput, .textinput, .nullbooleanselect, .textarea, .selectmultiple, .select{
-    border-color: #8a2be2;
-}
-
-#div_id_extras{
-    height: 10rem;
-    overflow: scroll;
-    border: solid 1px #8a2be2;
-}

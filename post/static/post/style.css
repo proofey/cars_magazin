@@ -1,0 +1,24 @@
+::-webkit-file-upload-button {
+    opacity: 0;
+  }
+
+
+/* Post form pictures fields */
+#div_id_main_picture, #div_id_picture_2, #div_id_picture_3, #div_id_picture_4, #div_id_picture_5, #div_id_picture_6,
+#div_id_picture_7, #div_id_picture_8, #div_id_picture_9, #div_id_picture_10{
+    border: solid 1px #8a2be2;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Post form fields */
+.numberinput, .textinput, .nullbooleanselect, .textarea, .selectmultiple, .select{
+    border-color: #8a2be2;
+}
+
+/* Post form multicheckbox field */
+#div_id_extras{
+    height: 10rem;
+    overflow: scroll;
+    border: solid 1px #8a2be2;
+}

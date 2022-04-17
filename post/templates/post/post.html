@@ -2,14 +2,14 @@
 
 
 <div class="row">
-    <div class="col-12 col-sm-12 d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
         {% thumbnail post.main_picture "450x200" crop="center" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
         {% endthumbnail %}
     </div>
-    <h4 class="col-12 col-sm-12 mt-3 ms-2 pot">{{ post.model }}</h4>
+    <h4 class="mt-3 ms-2 pot">{{ post.model }}</h4>
     <hr>
-    <h3 class="col-12 col-sm-12 ms-2 text-success">{{ post.price }}$</h3>
-    <h5 class="col-12 col-sm-12 ms-2 pot">{{ post.year_made }}, {{ post.fuel }}, {{ post.mileage }}km</h5>
-    <h6 class="col-12 col-sm-12 ms-2 mt-2 pot">{{ post.more_info }}</h6>
+    <h3 class="ms-2 text-success">{{ post.price }}$</h3>
+    <h5 class="ms-2 pot">{{ post.year_made }}, {{ post.fuel }}, {{ post.mileage }}km</h5>
+    <h6 class="ms-2 mt-2 pot">{{ post.more_info }}</h6>
 </div>
