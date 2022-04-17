@@ -1,3 +1,105 @@
+/* --------------------- Media ------------------- */
+
+@media only screen and (max-width: 600px){
+    .post-main-picture{
+        width: 100%;
+        height: 300px;
+    }
+    .post-pictures{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 600px){
+    .post-main-picture{
+        width: 100%;
+        height: 350px;
+    }
+    .post-pictures{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .post-main-picture{
+        width: 70%;
+    }
+    .post-picture{
+        width: 100%;
+        height: 150px;
+    }
+    .post-pictures{
+        display: block;
+        width: 30%;
+        height: 350px;
+        overflow: hidden;
+        overflow: scroll;
+        margin: auto;
+    }
+    .post-model{
+        width: 50%;
+    }
+    .post-price{
+        width: 50%;
+        text-align: right;
+    }
+    .post-model, .post-price{
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (min-width: 922px){
+    .post-main-picture{
+        width: 70%;
+        height: 450px;
+    }
+    .post-pictures{
+        width: 30%;
+        height: 450px;
+
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .post-main-picture{
+        height: 650px;
+    }
+    .post-pictures{
+        height: 650px;
+    }
+    .post-picture{
+        height: 200px;
+    }
+}
+
+/* --------------------- End of media --------------- */
+
+
+.post-title{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.post-extras{
+    margin-bottom: 20px;
+}
+
+.post-details{
+    border: none;
+    box-shadow: 0px 0px 6px 2px #8a2be2;
+    background-color: white;
+    overflow: hidden;
+}
+
+.post-main-picture, .post-picture{
+    display: flex;
+    justify-content: center;
+}
+
+.post-price{
+    color: green;
+}
+
 ::-webkit-file-upload-button {
     opacity: 0;
   }

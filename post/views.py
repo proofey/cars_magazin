@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from . forms import PostForm
+from . models import Post
 
 
 
@@ -17,4 +18,11 @@ def new_post(request):
 
     return render(request, 'post/new_post.html', {
         'form': form
+    })
+
+def post_details(request, id):
+    post = Post.objects.get(pk=id)
+
+    return render(request, 'post/post_details.html', {
+        'post': post
     })

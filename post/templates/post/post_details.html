@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'post/style.css' %}">
+{% endblock style %}
+
+
+{% block title %}
+Post Details
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row post-details">
+        <h1 class="post-model">{{ post.model }}</h1>
+        <h1 class="post-price">{{ post.price }}${% if post.price_negotiable is True %} / Price negotiable{% endif %}</h1>
+        <h3>{% if post.new_importation is True %}New Importation{% endif %}</h3>
+        <div class="post-main-picture">
+            <img src="{{ post.main_picture.url }}">
+        </div>
+        <div class="post-pictures row">
+            <div class="post-picture">
+                <img src="{{ post.main_picture.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.main_picture.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.main_picture.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.main_picture.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.main_picture.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.main_picture.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.main_picture.url }}">
+            </div>
+        </div>
+        <div class="post-title">
+            <h5>{{ post.year_made }}, {{ post.coupe }}, {{ post.condition }},
+                 {{ post.fuel }}, {{ post.mileage }}km, {{ post.gearbox }} transmission,
+                  {{ post.horsepower }}hP, {{ post.engine_size }}cc, {{ post.number_of_doors }} doors, {{ post.color }}</h5>
+        </div>
+        <div class="post-info">
+            <h6><b>More Information:</b>{{ post.more_info }}</h6>
+        </div>
+        <div class="post-extras">
+            <h6><b>Extras:</b>
+                {% for extra in post.extras.extra %}
+                    {{ extra }},
+                {% endfor %}
+            </h6>
+        </div>
+        <div class="contact">
+            <h6><b>Located at:</b> {{ post.located_at }}</h6>
+            <h6><b>{{ post.author }}</b>, {{ post.author.city }}</h6>
+            <h6><b>For Contact:</b>{{ post.author.phone_number }}</h6>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+
+{% endblock js %}

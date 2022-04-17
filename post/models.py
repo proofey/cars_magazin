@@ -1,22 +1,15 @@
+from django.urls import reverse
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from user_profile.models import Profile
 
 
 
-
-class TypeExtra(models.Model):
-    type = models.CharField(verbose_name='Type extra', max_length=100)
-
-    def __str__(self):
-        return self.type
-
 class Extra(models.Model):
-    type_extra = models.ForeignKey(TypeExtra, on_delete=models.CASCADE)
     extra = models.CharField(verbose_name='Extra', max_length=100)
 
     def __str__(self):
-        return f"{self.type_extra} - {self.extra}"
+        return self.extra
 
 
 
@@ -86,3 +79,8 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.author} - {self.model} - {self.price}"
+
+
+    def get_absolute_url(self):
+        return reverse('post-details', args=[self.pk])
+
