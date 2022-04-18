@@ -6,12 +6,13 @@ from . models import Post
 
 def new_post(request):
     form = PostForm()
+
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user.profile
-            post.save()
+            new_form = form.save(commit=False)
+            new_form.author = request.user.profile
+            new_form.save()
             form.save_m2m()
 
             return redirect('profile')
@@ -20,6 +21,25 @@ def new_post(request):
         'form': form
     })
 
+def update_post(request, id):
+    post = Post.objects.get(pk=id)
+    form = PostForm(instance=post)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.author = request.user.profile
+            new_form.save()
+            form.save_m2m()
+            return redirect('profile')
+
+    return render(request, 'post/update_post.html', {
+        'form': form,
+        'post': post
+    })
+
+
 def post_details(request, id):
     post = Post.objects.get(pk=id)
 
@@ -27,8 +47,10 @@ def post_details(request, id):
         'post': post
     })
 
+
 def delete_post(request, id):
     post = Post.objects.get(pk=id)
+
     if request.user.profile == post.author:
         post.delete()
         return redirect('home-page')

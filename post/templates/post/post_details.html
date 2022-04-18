@@ -21,7 +21,7 @@ Post Details
         <div class="post-menu dropdown">
             <a href="#" id="postMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">...</a>
             <ul class="dropdown-menu" aria-labelledby="postMenu">
-                <li><a class="post-update" href="">Update</a></li>
+                <li><a class="post-update" href="{% url 'update-post' post.pk %}">Update</a></li>
                 <li><a class="post-delete" href="{% url 'delete-post' post.pk %}">Delete</a></li>
             </ul>
         </div>

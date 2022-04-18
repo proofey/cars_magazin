@@ -3,7 +3,7 @@
 
 <div class="row">
     <a href="{{ post.get_absolute_url }}">
-        <div class="d-flex justify-content-center">
+        <div class="post-image">
             {% thumbnail post.main_picture "450x200" crop="center" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
             {% endthumbnail %}
