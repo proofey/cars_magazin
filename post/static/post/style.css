@@ -109,6 +109,7 @@
     font-size: x-large;
 }
 .post-main-picture, .post-picture{
+    overflow-y: hidden;
     display: flex;
     justify-content: center;
 }

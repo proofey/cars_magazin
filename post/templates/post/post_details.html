@@ -29,7 +29,7 @@ Post Details
         <h1 class="post-model">{{ post.model }}</h1>
         <h1 class="post-price">{{ post.price }}${% if post.price_negotiable is True %} / Price negotiable{% endif %}</h1>
         <h3>{% if post.new_importation is True %}New Importation{% endif %}</h3>
-        <div class="post-main-picture">
+        <div id="mainPicture" class="post-main-picture">
             <img src="{{ post.main_picture.url }}">
         </div>
         <div class="post-pictures row">
@@ -37,22 +37,31 @@ Post Details
                 <img src="{{ post.main_picture.url }}">
             </div>
             <div class="post-picture">
-                <img src="{{ post.main_picture.url }}">
+                <img src="{{ post.picture_2.url }}">
             </div>
             <div class="post-picture">
-                <img src="{{ post.main_picture.url }}">
+                <img src="{{ post.picture_3.url }}">
             </div>
             <div class="post-picture">
-                <img src="{{ post.main_picture.url }}">
+                <img src="{{ post.picture_4.url }}">
             </div>
             <div class="post-picture">
-                <img src="{{ post.main_picture.url }}">
+                <img src="{{ post.picture_5.url }}">
             </div>
             <div class="post-picture">
-                <img src="{{ post.main_picture.url }}">
+                <img src="{{ post.picture_6.url }}">
             </div>
             <div class="post-picture">
-                <img src="{{ post.main_picture.url }}">
+                <img src="{{ post.picture_7.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.picture_8.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.picture_9.url }}">
+            </div>
+            <div class="post-picture">
+                <img src="{{ post.picture_10.url }}">
             </div>
         </div>
         <div class="post-title">
@@ -82,5 +91,5 @@ Post Details
 
 
 {% block js %}
-
+    <script src="{% static 'post/swap_pictures.js' %}"></script>
 {% endblock js %}
