@@ -35,6 +35,7 @@
         overflow: hidden;
         overflow: scroll;
         margin: auto;
+        padding: 0%;
     }
     .post-model{
         width: 50%;
@@ -112,8 +113,13 @@
     overflow-y: hidden;
     display: flex;
     justify-content: center;
+    padding: 0%;
 }
-
+.my-img{
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
 .post-price{
     color: green;
 }

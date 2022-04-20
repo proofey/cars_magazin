@@ -4,12 +4,13 @@ from . models import Profile
 from . forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
+from django.core import serializers
 
 
 
 def my_profile(request):
     profile = Profile.objects.get(user=request.user)
-    posts = Post.objects.filter(author=request.user.profile)
+    posts = Post.objects.filter(author=request.user.profile).order_by('-id')
 
     return render(request, 'user_profile/profile.html', {
         'profile': profile,
@@ -52,4 +53,5 @@ def login_request(request):
 def logout_request(request):
     logout(request)
     return redirect('home-page')
+
 

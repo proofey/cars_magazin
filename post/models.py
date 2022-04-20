@@ -13,7 +13,6 @@ class Extra(models.Model):
         return self.extra
 
 
-
 class Coupe(models.Model):
     type = models.CharField(verbose_name='Coupe', max_length=30)
 

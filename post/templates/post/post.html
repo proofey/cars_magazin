@@ -2,11 +2,12 @@
 
 
 <div class="row">
-    <a href="{{ post.get_absolute_url }}">
+    <a class="post-link" href="{{ post.get_absolute_url }}">
         <div class="post-image">
-            {% thumbnail post.main_picture "450x200" crop="center" as im %}
+            <!-- {% thumbnail post.main_picture "450x200" crop="center" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-            {% endthumbnail %}
+            {% endthumbnail %} -->
+            <img class="post-thumbnail" src="{{ post.main_picture.url }}" alt="">
         </div>
         <h4 class="mt-3 ms-2 pot">{{ post.model }}</h4>
         <hr>

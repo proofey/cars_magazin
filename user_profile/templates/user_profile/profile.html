@@ -29,18 +29,20 @@ Profile
             </div>
         </div>
         <div class="profile-content">
-            <div class="row">
+            <div>
                 <div class="profile-content-btns">
                     <a href="{% url 'new-post' %}" class="btn mybtn">Post</a>
-                    <a class="btn mybtn">My Posts</a>
+                    <a id='myPosts'  class="btn mybtn">My Posts</a>
                     <a class="btn mybtn">btn3</a>
                     <a class="btn mybtn">btn4</a>
                 </div>
-                {% for post in posts %}
-                    <div class="profile-post">
-                        {% include 'post/post.html' %}
-                    </div>
-                {% endfor %}
+                <div id="postWall" class="row">
+                    {% for post in posts %}
+                        <div class="profile-post">
+                            {% include 'post/post.html' %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -50,5 +52,5 @@ Profile
 
 
 {% block js %}
-
+    <script src="{% static 'user_profile/my_posts.js' %}"></script>
 {% endblock js %}

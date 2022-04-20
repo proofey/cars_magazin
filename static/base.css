@@ -78,8 +78,15 @@ body{
 .post-image{
     display: flex;
     justify-content: center;
+    height: 200px;
 }
 
+.post-thumbnail{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
 .mynavbar {
     background-color: blueviolet;
     color: azure;
@@ -138,4 +145,7 @@ a{
 a:hover{
     color: black;
     cursor: default;
+}
+.post-link{
+    padding: 0%;
 }
