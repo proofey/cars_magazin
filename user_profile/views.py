@@ -4,7 +4,7 @@ from . models import Profile
 from . forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
-from django.core import serializers
+
 
 
 

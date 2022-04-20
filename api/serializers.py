@@ -1,7 +1,5 @@
-from this import d
 from rest_framework.serializers import ModelSerializer
-from rest_framework import serializers
-from . models import Extra, Coupe, Gearbox, Condition, Fuel, NumberOfDoors, Post
+from post.models import Extra, Coupe, Gearbox, Condition, Fuel, NumberOfDoors, Post
 
 
 class ExtraSerializer(ModelSerializer):
@@ -41,7 +39,7 @@ class PostSerializer(ModelSerializer):
     condition = ConditionSerializer()
     fuel = FuelSerializer()
     number_of_doors = NumberOfDoorsSerializer()
-    
+
     class Meta:
         model = Post
         fields = '__all__'
