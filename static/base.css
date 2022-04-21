@@ -17,6 +17,14 @@ body{
 /* --------------------Media ---------------------------------------- */
 
 @media only screen and (max-width: 600px){
+    .post-created{
+        width: 80%;
+        margin: auto;
+    }
+    .followBtn{
+        width: 20%;
+        padding: 0%;
+    }
     .post, .profile-post{
         width: auto;
         margin-bottom: 7%;
@@ -27,6 +35,14 @@ body{
 }
 
 @media only screen and (min-width: 600px){
+    .post-created{
+        width: 80%;
+        margin: auto;
+    }
+    .followBtn{
+        width: 20%;
+        padding: 0%;
+    }
     .post, .profile-post{
         width: 47%;
         margin: 1.5%;
@@ -75,6 +91,11 @@ body{
 /* ----------------------------- End of Media ----------------------------------------- */
 
 
+.followBtn{
+    display: flex;
+    justify-content: center;
+}
+
 .post-image{
     display: flex;
     justify-content: center;
@@ -110,7 +131,7 @@ body{
     background-color: white;
 }
 .post, .profile-post, .profile{
-    height: 25rem;
+    height: 26rem;
     overflow: hidden;
 }
 

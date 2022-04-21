@@ -103,3 +103,14 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post-details', args=[self.pk])
 
+    
+    def follow_logo(self):
+        profile = Profile.objects.get(user=self.author.user)
+        if self in profile.post_follows.all():
+            return '💜'
+        else:
+            return '🤍'
+
+    def say_hi(self):
+        return "HELLO!"
+

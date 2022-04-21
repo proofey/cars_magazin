@@ -1,6 +1,13 @@
 /* --------------------- Media ------------------- */
 
 @media only screen and (max-width: 600px){
+    .post-created{
+        width: 80%;
+        margin: auto;
+    }
+    .followBtn{
+        width: 20%;
+    }
     .post-main-picture{
         width: 100%;
         height: 300px;
@@ -11,6 +18,13 @@
 }
 
 @media only screen and (min-width: 600px){
+    .post-created{
+        width: 80%;
+        margin: auto;
+    }
+    .followBtn{
+        width: 20%;
+    }
     .post-main-picture{
         width: 100%;
         height: 350px;
@@ -75,7 +89,6 @@
 }
 
 /* --------------------- End of media --------------- */
-
 
 
 

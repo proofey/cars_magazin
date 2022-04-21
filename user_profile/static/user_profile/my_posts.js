@@ -9,12 +9,15 @@ myPostsBtn.addEventListener('click', function(){
     xhr.onload = function(){
         if(this.status === 200){
             const posts = JSON.parse(this.response);
+            console.log(posts)
             postWall.innerHTML = ''
             for(let i = 0; i < posts.length; i++){
                 postWall.innerHTML += `
                 <div class="profile-post">
                     <div class="row">
-                        <a class='post-link' href="/post_details/${posts[i].pk}">
+                        <h6 class="post-created">Created</h6>
+                        <a class="followBtn" href="/follow-unfollow/${posts[i].pk}">${posts[i].follow_logo}</a>
+                        <a class='post-link' href="/post-details/${posts[i].pk}">
                             <div class="post-image">
                                 <img class='post-thumbnail' src="${posts[i].main_picture}">
                             </div>

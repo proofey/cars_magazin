@@ -1,6 +1,8 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from . forms import PostForm
 from . models import Post
+from user_profile.models import Profile
 
 
 
@@ -56,3 +58,16 @@ def delete_post(request, id):
         return redirect('home-page')
 
 
+def follow_unfollow(request, id):
+    post = Post.objects.get(pk=id)
+    profile = Profile.objects.get(user=request.user)
+    follow_list = profile.post_follows.all()
+
+    if post in follow_list:
+        profile.post_follows.remove(post)
+     
+        return HttpResponse("follow removed")
+    elif post not in follow_list:
+        profile.post_follows.add(post)
+       
+        return HttpResponse("follow added")
