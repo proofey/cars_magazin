@@ -96,6 +96,8 @@ class Post(models.Model):
     fuel = models.ForeignKey(Fuel, on_delete=models.PROTECT, null=True)
     number_of_doors = models.ForeignKey(NumberOfDoors, on_delete=models.PROTECT, null=True)
 
+    result = ''
+
     def __str__(self):
         return f"{self.author} - {self.model} - {self.price}"
 
@@ -104,13 +106,15 @@ class Post(models.Model):
         return reverse('post-details', args=[self.pk])
 
     
-    def follow_logo(self):
-        profile = Profile.objects.get(user=self.author.user)
-        if self in profile.post_follows.all():
-            return '💜'
-        else:
-            return '🤍'
-
-    def say_hi(self):
-        return "HELLO!"
-
+    
+    def follow_logo(self, request):
+        user = request.user
+        if user.is_authenticated:
+            if self in user.profile.post_follows.all():
+                self.result = "💜"
+                return self.result
+            else:
+                self.result = "🤍"
+                return self.result
+        self.result = "🤍"
+        return self.result

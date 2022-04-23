@@ -4,6 +4,7 @@ from . models import Profile
 from . forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
+from api.utils import get_follow_logo
 
 
 
@@ -11,6 +12,7 @@ from django.http import HttpResponse
 def my_profile(request):
     profile = Profile.objects.get(user=request.user)
     posts = Post.objects.filter(author=request.user.profile).order_by('-id')
+    get_follow_logo(posts, request)
 
     return render(request, 'user_profile/profile.html', {
         'profile': profile,

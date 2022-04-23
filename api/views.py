@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from . serializers import PostSerializer
+from . utils import get_follow_logo
 
 
 @api_view(['GET', 'POST'])
@@ -46,5 +47,6 @@ def post_details_api(request, pk):
 def my_posts(request):
     if request.method == "GET":
         posts = Post.objects.filter(author=request.user.profile).order_by('-id')
-        serializer = PostSerializer(posts, many=True)   
+        new_posts = get_follow_logo(posts, request)
+        serializer = PostSerializer(new_posts, many=True)   
         return Response(serializer.data)

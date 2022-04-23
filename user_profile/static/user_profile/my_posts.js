@@ -1,3 +1,5 @@
+// Displays only my posts in my Profile
+
 const profilePost = document.querySelector('profile-post');
 const myPostsBtn = document.getElementById('myPosts');
 const postWall = document.getElementById('postWall');
@@ -12,11 +14,11 @@ myPostsBtn.addEventListener('click', function(){
             console.log(posts)
             postWall.innerHTML = ''
             for(let i = 0; i < posts.length; i++){
-                postWall.innerHTML += `
-                <div class="profile-post">
+                postWall.innerHTML += 
+                `<div class="profile-post">
                     <div class="row">
                         <h6 class="post-created">Created</h6>
-                        <a class="followBtn" href="/follow-unfollow/${posts[i].pk}">${posts[i].follow_logo}</a>
+                        <a class="followBtn" href="/follow-unfollow/${posts[i].pk}">${posts[i].result}</a>
                         <a class='post-link' href="/post-details/${posts[i].pk}">
                             <div class="post-image">
                                 <img class='post-thumbnail' src="${posts[i].main_picture}">
@@ -31,7 +33,33 @@ myPostsBtn.addEventListener('click', function(){
                 </div>
                 `
             }
+            followUnfollow();
         };
     };
     xhr.send();
 });
+
+//shows follow/unfollow Icon 
+
+const followBtn = document.getElementsByClassName('followBtn');
+function followUnfollow(){
+    for(let i = 0; i < followBtn.length; i++){
+        const url = followBtn[i].getAttribute('href');
+        followBtn[i].addEventListener('click', function(e){
+            e.preventDefault();
+        
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onload = function(){
+                if(this.responseText === "follow added"){
+                    followBtn[i].innerText = '💜'
+                }else if(this.responseText === "follow removed"){
+                    followBtn[i].innerText = '🤍'
+                }
+            }
+            xhr.send();
+        });
+    
+    };
+};
+followUnfollow();

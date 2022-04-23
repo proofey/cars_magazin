@@ -1,8 +1,6 @@
 <div class="row">
     <h6 class="post-created">Created</h6>
-    <a class="followBtn" href="{% url 'follow-unfollow' post.pk %}">
-        {{ post.follow_logo }}
-    </a>
+    <a class="followBtn" href="{% url 'follow-unfollow' post.pk %}">{{ post.result }}</a>
     <a class="post-link" href="{{ post.get_absolute_url }}">
         <div class="post-image">
             <img class="post-thumbnail" src="{{ post.main_picture.url }}" alt="">
