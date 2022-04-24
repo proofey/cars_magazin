@@ -33,7 +33,7 @@ Profile
                 <div class="profile-content-btns">
                     <a href="{% url 'new-post' %}" class="btn mybtn">New Post</a>
                     <a id='myPosts'  class="btn mybtn">My Posts</a>
-                    <a class="btn mybtn">btn3</a>
+                    <a id="myFollows" class="btn mybtn">My Follows</a>
                     <a class="btn mybtn">btn4</a>
                 </div>
                 <div id="postWall" class="row">
@@ -52,5 +52,5 @@ Profile
 
 
 {% block js %}
-    <script src="{% static 'user_profile/my_posts.js' %}"></script>
+    <script src="{% static 'user_profile/javascript.js' %}"></script>
 {% endblock js %}

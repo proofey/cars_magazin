@@ -1,4 +1,3 @@
-from email.policy import default
 from django.urls import reverse
 from django.core.validators import FileExtensionValidator
 from django.db import models
@@ -49,13 +48,13 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     model = models.CharField(verbose_name='Model', max_length=100)
     price = models.IntegerField(verbose_name='Price')
-    price_negotiable = models.BooleanField(verbose_name='Price negotiable', blank=True, null=True)
+    price_negotiable = models.BooleanField(verbose_name='Price negotiable', blank=True, null=True, default=False)
     year_made = models.IntegerField(verbose_name='Year')
     horsepower = models.IntegerField(verbose_name='Horsepower', blank=True, null=True)
     engine_size = models.IntegerField(verbose_name='Engine size', blank=True, null=True)
     mileage = models.IntegerField(verbose_name='Mileage')
     color = models.CharField(verbose_name='Color', max_length=30, blank=True, null=True)
-    new_importation = models.BooleanField(verbose_name='New importation', blank=True, null=True)
+    new_importation = models.BooleanField(verbose_name='New importation', blank=True, null=True, default=False)
     located_at = models.CharField(verbose_name='Located at', max_length=30)
     more_info = models.TextField(verbose_name='More information', blank=True, null=True)
 
@@ -106,7 +105,7 @@ class Post(models.Model):
         return reverse('post-details', args=[self.pk])
 
     
-    
+
     def follow_logo(self, request):
         user = request.user
         if user.is_authenticated:

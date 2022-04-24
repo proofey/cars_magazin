@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from . serializers import PostSerializer
-from . utils import get_follow_logo
+from . utils import get_follow_logo, filter_posts_i_follow
 
 
 @api_view(['GET', 'POST'])
@@ -50,3 +50,12 @@ def my_posts(request):
         new_posts = get_follow_logo(posts, request)
         serializer = PostSerializer(new_posts, many=True)   
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def posts_i_follow(request):
+    posts = Post.objects.all().order_by('id')
+    get_follow_logo(posts, request)
+    filtered_posts = filter_posts_i_follow(posts, request)
+    serializer = PostSerializer(filtered_posts, many=True)
+    return Response(serializer.data)
