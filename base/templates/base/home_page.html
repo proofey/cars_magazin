@@ -14,6 +14,17 @@ HOME
 
 {% block content %}
     <div class="container-fluid mt-5">
+        <div id="search-menu">       
+            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#coupeModal">Coupe</button>
+            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#modelModal">Model</button>
+            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#fuelModal">Fuel</button>
+            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#transmissionModal">Transmission</button>
+            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#priceLimitModal">Price Limit</button>
+            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#locationModal">Location</button>
+            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#yearModal">Year</button>
+            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#doorsModal">Number of Doors</button>
+            <a class="btn mybtn" href="">Reset Search</a>
+        </div>
         <div class="row">
             {% for post in posts %}
                 <div class="post">
@@ -21,10 +32,19 @@ HOME
                 </div>
             {% endfor %}
         </div>
+        {% include 'search/coupe_search_modal.html' %}
+        {% include 'search/model_search_modal.html' %}
+        {% include 'search/fuel_search_modal.html' %}
+        {% include 'search/transmission_search_modal.html' %}
+        {% include 'search/price_limit_search_modal.html' %}
+        {% include 'search/location_search_modal.html' %}
+        {% include 'search/year_search_modal.html' %}
+        {% include 'search/doors_search_modal.html' %}
+
     </div>
 {% endblock content %}
 
 
 {% block js %}
-    <script src="{% static 'post/follow_unfollow.js' %}"></script>
+    
 {% endblock js %}

@@ -23,7 +23,8 @@ urlpatterns = [
     path('', include('base.urls')),
     path('', include('user_profile.urls')),
     path('', include('post.urls')),
-    path('', include('api.urls'))
+    path('', include('api.urls')),
+    path('', include('search.urls'))
 ]
 
 if settings.DEBUG:
