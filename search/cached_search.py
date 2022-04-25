@@ -1,1 +1,0 @@
-CACHED_SEARCH = []

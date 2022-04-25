@@ -149,7 +149,9 @@ body{
 .mybtn{
     margin: 5px;
 }
-
+.btn-selected{
+    background-color: #cc98fd;
+}
 /* Yes and No buttons */
 .b-yes:hover{
     color: #008000;
@@ -169,4 +171,8 @@ a:hover{
 }
 .post-link{
     padding: 0%;
+}
+input{
+    width: 250px;
+    overflow: hidden;
 }

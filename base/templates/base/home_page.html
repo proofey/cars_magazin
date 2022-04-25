@@ -14,8 +14,8 @@ HOME
 
 {% block content %}
     <div class="container-fluid mt-5">
-        <div id="search-menu">       
-            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#coupeModal">Coupe</button>
+        <div id="search-menu" class="mb-3">       
+            <button id="coupe-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#coupeModal">Coupe</button>
             <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#modelModal">Model</button>
             <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#fuelModal">Fuel</button>
             <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#transmissionModal">Transmission</button>
@@ -23,9 +23,9 @@ HOME
             <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#locationModal">Location</button>
             <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#yearModal">Year</button>
             <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#doorsModal">Number of Doors</button>
-            <a class="btn mybtn" href="">Reset Search</a>
+            <a id="reset-search-btn" class="btn mybtn" href="">Reset Search</a>
         </div>
-        <div class="row">
+        <div id="main-page-post-wall" class="row">
             {% for post in posts %}
                 <div class="post">
                     {% include 'post/post.html' %}

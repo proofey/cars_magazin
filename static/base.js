@@ -125,3 +125,68 @@ if(myFollowsBtn){
         xhr.send();
     });
 }
+
+
+// ---------------------------- SEARCH JAVASCRIPTS ------------------------------
+
+
+// Search by Coupe
+
+const mainPagePostWall = document.getElementById('main-page-post-wall');
+const resetSearchBtn = document.getElementById('reset-search-btn');
+const coupeModalBtn = document.getElementById('coupe-modal-btn');
+const coupeModal = document.getElementById('coupeModal');
+
+
+const coupeSearchBtns = document.getElementsByClassName('coupe-search');
+for(let i = 0; i < coupeSearchBtns.length; i++){
+    coupeSearchBtns[i].addEventListener('click', function(e){
+        e.preventDefault();
+        coupeModalBtn.classList.add('btn-selected');
+        resetSearchBtn.classList.add('btn-selected');
+        let modal = bootstrap.Modal.getInstance(coupeModal);
+        modal.hide();
+        
+
+        const url = coupeSearchBtns[i].getAttribute('href');
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onload = function(){
+            const posts = JSON.parse(this.response);
+            mainPagePostWall.innerHTML = ''
+
+            if(posts.length < 1){
+                const noResult = document.createElement('h1');
+                noResult.innerText = 'No results.Try with different search...'
+                mainPagePostWall.appendChild(noResult);
+            };
+
+            for(let i = 0; i < posts.length; i++){
+                coupeModalBtn.innerText = posts[i].coupe.type
+                mainPagePostWall.innerHTML += 
+                `<div class="post">
+                    <div class="row">
+                        <h6 class="post-created">Created</h6>
+                        <a class="followBtn" href="/follow-unfollow/${posts[i].pk}">${posts[i].result}</a>
+                        <a class='post-link' href="/post-details/${posts[i].pk}">
+                            <div class="post-image">
+                                <img class='post-thumbnail' src="${posts[i].main_picture}">
+                            </div>
+                            <h4 class="mt-3 ms-2 pot">${posts[i].model}</h4>
+                            <hr>
+                            <h3 class="ms-2 text-success">${posts[i].price}$</h3>
+                            <h5 class="ms-2 pot">${posts[i].year_made}, ${posts[i].fuel.type}, ${posts[i].mileage}km</h5>
+                            <h6 class="ms-2 mt-2 pot">${posts[i].more_info}</h6>
+                        </a>
+                    </div>
+                </div>
+                `
+                followUnfollow();
+            };
+        };
+        xhr.send();
+    });
+}
+
+// Search by Fuel
+

@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         {% for coupe in coupes %}
-        <button class="btn mybtn">{{ coupe.type }}</button>
+          <a href="{% url 'coupe-search' coupe.type %}" class="btn mybtn coupe-search">{{ coupe.type }}</a>
         {% endfor %}
       </div>
     </div>
