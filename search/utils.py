@@ -16,3 +16,16 @@ def check_cache_for_coupe(type):
         for post in posts:
             CACHED_SEARCH.append(post)
         return CACHED_SEARCH
+
+
+def check_cache_for_model(model):
+    if len(CACHED_SEARCH) > 0:
+        for post in CACHED_SEARCH:
+            if model.lower() not in post.model.lower():
+                CACHED_SEARCH.remove(post)
+        return CACHED_SEARCH
+    else:
+        posts = Post.objects.filter(model__icontains=model)
+        for post in posts:
+            CACHED_SEARCH.append(post)
+        return CACHED_SEARCH

@@ -14,17 +14,7 @@ HOME
 
 {% block content %}
     <div class="container-fluid mt-5">
-        <div id="search-menu" class="mb-3">       
-            <button id="coupe-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#coupeModal">Coupe</button>
-            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#modelModal">Model</button>
-            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#fuelModal">Fuel</button>
-            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#transmissionModal">Transmission</button>
-            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#priceLimitModal">Price Limit</button>
-            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#locationModal">Location</button>
-            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#yearModal">Year</button>
-            <button type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#doorsModal">Number of Doors</button>
-            <a id="reset-search-btn" class="btn mybtn" href="">Reset Search</a>
-        </div>
+            {% include 'search/search_bar.html' %}
         <div id="main-page-post-wall" class="row">
             {% for post in posts %}
                 <div class="post">
@@ -40,11 +30,7 @@ HOME
         {% include 'search/location_search_modal.html' %}
         {% include 'search/year_search_modal.html' %}
         {% include 'search/doors_search_modal.html' %}
-
     </div>
 {% endblock content %}
 
-
-{% block js %}
-    
-{% endblock js %}
+{% block js %}{% endblock js %}
