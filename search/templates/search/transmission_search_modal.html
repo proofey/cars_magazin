@@ -7,7 +7,7 @@
         </div>
         <div class="modal-body">
           {% for transmission in transmissions %}
-            <button class="btn mybtn">{{ transmission.type }}</button>
+            <a href="{% url 'transmission-search' transmission.type %}" class="btn mybtn transmission-search">{{ transmission.type }}</a>
           {% endfor %}
         </div>
       </div>

@@ -6,10 +6,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="">
-                <input class="mybtn" type="text" placeholder="Choose Location...">
-                <button class="btn mybtn">Search</button>
-            </form>
+          <form id="location-form" action="{% url 'location-search' %}" method="POST">
+            {% csrf_token %}
+            <input name="location-input" id="location-input" class="mybtn" type="text" placeholder="Location...">
+            <button class="btn mybtn" type="submit">Search</button>
+          </form>
         </div>
       </div>
     </div>

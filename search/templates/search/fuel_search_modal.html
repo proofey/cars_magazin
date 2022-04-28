@@ -7,7 +7,7 @@
         </div>
         <div class="modal-body">
           {% for fuel in fuels %}
-            <button class="btn mybtn">{{ fuel.type }}</button>
+            <a href="{% url 'fuel-search' fuel.type %}" class="btn mybtn fuel-search">{{ fuel.type }}</a>
           {% endfor %}
         </div>
       </div>
