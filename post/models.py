@@ -57,6 +57,7 @@ class Post(models.Model):
     new_importation = models.BooleanField(verbose_name='New importation', blank=True, null=True, default=False)
     located_at = models.CharField(verbose_name='Located at', max_length=30)
     more_info = models.TextField(verbose_name='More information', blank=True, null=True)
+    created = models.DateTimeField(verbose_name='Created', auto_now_add=True)
 
     main_picture = models.ImageField(verbose_name='Main picture', upload_to='post_pictures', default='post_pictures/default_car.jpg', 
                                     blank=True, null=True, validators=[FileExtensionValidator(['png', 'jpg', 'jpeg'])])\

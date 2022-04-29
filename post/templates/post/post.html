@@ -1,5 +1,5 @@
 <div class="row">
-    <h6 class="post-created">Created</h6>
+    <h6 class="post-created">{{ post.created|date:"F j, Y, g:i A" }}</h6>
     <a class="followBtn" href="{% url 'follow-unfollow' post.pk %}">{{ post.result }}</a>
     <a class="post-link" href="{{ post.get_absolute_url }}">
         <div class="post-image">

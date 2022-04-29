@@ -52,7 +52,7 @@ function concatenateProfilePosts(postWall, posts, i){
     postWall.innerHTML += 
     `<div class="profile-post">
         <div class="row">
-            <h6 class="post-created">Created</h6>
+            <h6 class="post-created">${posts[i].created}</h6>
             <a class="followBtn" href="/follow-unfollow/${posts[i].pk}">${posts[i].result}</a>
             <a class='post-link' href="/post-details/${posts[i].pk}">
                 <div class="post-image">
@@ -121,6 +121,7 @@ if(myFollowsBtn){
         xhr.onload = function(){
             if(this.status === 200){
                 const posts = JSON.parse(this.response)
+                console.log(posts)
                 postWall.innerHTML = ''
                 myPostsBtn.classList.remove('btn-selected');
                 myFollowsBtn.classList.add('btn-selected');
@@ -145,7 +146,7 @@ function concatenateMainPagePosts(mainPagePostWall, posts, i){
     mainPagePostWall.innerHTML += 
     `<div class="post">
         <div class="row">
-            <h6 class="post-created">Created</h6>
+            <h6 class="post-created">${posts[i].created}</h6>
             <a class="followBtn" href="/follow-unfollow/${posts[i].pk}">${posts[i].result}</a>
             <a class='post-link' href="/post-details/${posts[i].pk}">
                 <div class="post-image">
@@ -181,36 +182,39 @@ const resetSearchBtn = document.getElementById('reset-search-btn');
 // Reset Searchbar
 
 const searchMenu = document.getElementById('search-menu');
-resetSearchBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    const url = resetSearchBtn.getAttribute('href');
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.onload = function(){
-        if(this.status === 200){
-            const posts = JSON.parse(this.response);
-            searchMenu.innerHTML = ''
-            searchMenu.innerHTML = 
-            `
-            <button id="coupe-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#coupeModal">Coupe</button>
-            <button id="model-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#modelModal">Model</button>
-            <button id="fuel-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#fuelModal">Fuel</button>
-            <button id="transmission-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#transmissionModal">Transmission</button>
-            <button id="price-limit-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#priceLimitModal">Price Limit</button>
-            <button id="location-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#locationModal">Location</button>
-            <button id="year-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#yearModal">Minimum Year</button>
-            `
-            resetSearchBtn.classList.remove('btn-selected');
-            mainPagePostWall.innerHTML = ''
-            ifNoResults(posts);
-            for(let i = 0; i < posts.length; i++){
-                concatenateMainPagePosts(mainPagePostWall, posts, i)
+if(resetSearchBtn){
+    resetSearchBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        const url = resetSearchBtn.getAttribute('href');
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onload = function(){
+            if(this.status === 200){
+                const posts = JSON.parse(this.response);
+                searchMenu.innerHTML = ''
+                searchMenu.innerHTML = 
+                `
+                <button id="coupe-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#coupeModal">Coupe</button>
+                <button id="model-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#modelModal">Model</button>
+                <button id="fuel-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#fuelModal">Fuel</button>
+                <button id="transmission-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#transmissionModal">Transmission</button>
+                <button id="price-limit-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#priceLimitModal">Price Limit</button>
+                <button id="location-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#locationModal">Location</button>
+                <button id="year-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#yearModal">Minimum Year</button>
+                `
+                resetSearchBtn.classList.remove('btn-selected');
+                mainPagePostWall.innerHTML = ''
+                ifNoResults(posts);
+                for(let i = 0; i < posts.length; i++){
+                    concatenateMainPagePosts(mainPagePostWall, posts, i)
+                };
+                followUnfollow();
             };
-            followUnfollow();
         };
-    };
-    xhr.send();
-});
+        xhr.send();
+    });
+};
+
 
 
 // Search by Coupe
@@ -251,38 +255,41 @@ for(let i = 0; i < coupeSearchBtns.length; i++){
 // Search by Model
 
 const modelForm = document.getElementById('model-form');
-modelForm.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    const modelModalBtn = document.getElementById('model-modal-btn');
-    const modelModal = document.getElementById('modelModal');
-    modelModalBtn.classList.add('btn-selected');
-    modelModalBtn.removeAttribute('data-bs-target');
-    resetSearchBtn.classList.add('btn-selected');
-    let modal = bootstrap.Modal.getInstance(modelModal);
-    modal.hide();
+if(modelForm){
+    modelForm.addEventListener('submit', function(e){
+        e.preventDefault();
     
-    const data = new FormData(modelForm);
-    const url = modelForm.getAttribute('action');
-    const token = document.getElementsByName('csrfmiddleweartoken')[0];
+        const modelModalBtn = document.getElementById('model-modal-btn');
+        const modelModal = document.getElementById('modelModal');
+        modelModalBtn.classList.add('btn-selected');
+        modelModalBtn.removeAttribute('data-bs-target');
+        resetSearchBtn.classList.add('btn-selected');
+        let modal = bootstrap.Modal.getInstance(modelModal);
+        modal.hide();
+        
+        const data = new FormData(modelForm);
+        const url = modelForm.getAttribute('action');
+        const token = document.getElementsByName('csrfmiddleweartoken')[0];
+        
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('X-CSRFToken', token);
+        xhr.onload = function(){
+            if(this.status === 200){
+                const posts = JSON.parse(this.response);
+                modelModalBtn.innerText = data.get('model-input');
+                mainPagePostWall.innerHTML = ''
+                ifNoResults(posts);
+                for(let i = 0; i < posts.length; i++){
+                    concatenateMainPagePosts(mainPagePostWall, posts, i);
+                }
+                followUnfollow();
+            };
+        }
+        xhr.send(data);
+    });
     
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-CSRFToken', token);
-    xhr.onload = function(){
-        if(this.status === 200){
-            const posts = JSON.parse(this.response);
-            modelModalBtn.innerText = data.get('model-input');
-            mainPagePostWall.innerHTML = ''
-            ifNoResults(posts);
-            for(let i = 0; i < posts.length; i++){
-                concatenateMainPagePosts(mainPagePostWall, posts, i);
-            }
-            followUnfollow();
-        };
-    }
-    xhr.send(data);
-});
+};
 
 
 // Search by Fuel
@@ -358,111 +365,119 @@ for(let i = 0; i < transmissionSearchBtns.length; i++){
 // Search by Price Limit
 
 const priceLimitForm = document.getElementById('price-limit-form');
-priceLimitForm.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    const priceLimitModalBtn = document.getElementById('price-limit-modal-btn');
-    const priceLimitModal = document.getElementById('priceLimitModal');
-    priceLimitModalBtn.classList.add('btn-selected');
-    priceLimitModalBtn.removeAttribute('data-bs-target');
-    resetSearchBtn.classList.add('btn-selected');
-    let modal = bootstrap.Modal.getInstance(priceLimitModal);
-    modal.hide();
+if(priceLimitForm){
+    priceLimitForm.addEventListener('submit', function(e){
+        e.preventDefault();
     
-    const data = new FormData(priceLimitForm);
-    const url = priceLimitForm.getAttribute('action');
-    const token = document.getElementsByName('csrfmiddleweartoken')[0];
-    
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-CSRFToken', token);
-    xhr.onload = function(){
-        if(this.status === 200){
-            const posts = JSON.parse(this.response);
-            priceLimitModalBtn.innerText = data.get('price-limit-input');
-            mainPagePostWall.innerHTML = ''
-            ifNoResults(posts);
-            for(let i = 0; i < posts.length; i++){
-                concatenateMainPagePosts(mainPagePostWall, posts, i);
-            }
-            followUnfollow();
-        };
-    }
-    xhr.send(data);
-});
+        const priceLimitModalBtn = document.getElementById('price-limit-modal-btn');
+        const priceLimitModal = document.getElementById('priceLimitModal');
+        priceLimitModalBtn.classList.add('btn-selected');
+        priceLimitModalBtn.removeAttribute('data-bs-target');
+        resetSearchBtn.classList.add('btn-selected');
+        let modal = bootstrap.Modal.getInstance(priceLimitModal);
+        modal.hide();
+        
+        const data = new FormData(priceLimitForm);
+        const url = priceLimitForm.getAttribute('action');
+        const token = document.getElementsByName('csrfmiddleweartoken')[0];
+        
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('X-CSRFToken', token);
+        xhr.onload = function(){
+            if(this.status === 200){
+                const posts = JSON.parse(this.response);
+                priceLimitModalBtn.innerText = data.get('price-limit-input');
+                mainPagePostWall.innerHTML = ''
+                ifNoResults(posts);
+                for(let i = 0; i < posts.length; i++){
+                    concatenateMainPagePosts(mainPagePostWall, posts, i);
+                }
+                followUnfollow();
+            };
+        }
+        xhr.send(data);
+    });
+};
 
 
 // Search by Location
 
 const locationForm = document.getElementById('location-form');
-locationForm.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    const locationModalBtn = document.getElementById('location-modal-btn');
-    const locationModal = document.getElementById('locationModal');
-    locationModalBtn.classList.add('btn-selected');
-    locationModalBtn.removeAttribute('data-bs-target');
-    resetSearchBtn.classList.add('btn-selected');
-    let modal = bootstrap.Modal.getInstance(locationModal);
-    modal.hide();
+if(locationForm){
+    locationForm.addEventListener('submit', function(e){
+        e.preventDefault();
     
-    const data = new FormData(locationForm);
-    const url = locationForm.getAttribute('action');
-    const token = document.getElementsByName('csrfmiddleweartoken')[0];
+        const locationModalBtn = document.getElementById('location-modal-btn');
+        const locationModal = document.getElementById('locationModal');
+        locationModalBtn.classList.add('btn-selected');
+        locationModalBtn.removeAttribute('data-bs-target');
+        resetSearchBtn.classList.add('btn-selected');
+        let modal = bootstrap.Modal.getInstance(locationModal);
+        modal.hide();
+        
+        const data = new FormData(locationForm);
+        const url = locationForm.getAttribute('action');
+        const token = document.getElementsByName('csrfmiddleweartoken')[0];
+        
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('X-CSRFToken', token);
+        xhr.onload = function(){
+            if(this.status === 200){
+                const posts = JSON.parse(this.response);
+                locationModalBtn.innerText = data.get('location-input');
+                mainPagePostWall.innerHTML = ''
+                ifNoResults(posts);
+                for(let i = 0; i < posts.length; i++){
+                    concatenateMainPagePosts(mainPagePostWall, posts, i);
+                }
+                followUnfollow();
+            };
+        }
+        xhr.send(data);
+    });
     
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-CSRFToken', token);
-    xhr.onload = function(){
-        if(this.status === 200){
-            const posts = JSON.parse(this.response);
-            locationModalBtn.innerText = data.get('location-input');
-            mainPagePostWall.innerHTML = ''
-            ifNoResults(posts);
-            for(let i = 0; i < posts.length; i++){
-                concatenateMainPagePosts(mainPagePostWall, posts, i);
-            }
-            followUnfollow();
-        };
-    }
-    xhr.send(data);
-});
+};
 
 
 // Search by Minimum Year
 
 const yearForm = document.getElementById('year-form');
-yearForm.addEventListener('submit', function(e){
-    e.preventDefault();
+if(yearForm){
+    yearForm.addEventListener('submit', function(e){
+        e.preventDefault();
+    
+        const yearModalBtn = document.getElementById('year-modal-btn');
+        const yearModal = document.getElementById('yearModal');
+        yearModalBtn.classList.add('btn-selected');
+        yearModalBtn.removeAttribute('data-bs-target');
+        resetSearchBtn.classList.add('btn-selected');
+        let modal = bootstrap.Modal.getInstance(yearModal);
+        modal.hide();
+        
+        const data = new FormData(yearForm);
+        const url = yearForm.getAttribute('action');
+        const token = document.getElementsByName('csrfmiddleweartoken')[0];
+        
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('X-CSRFToken', token);
+        xhr.onload = function(){
+            if(this.status === 200){
+                const posts = JSON.parse(this.response);
+                yearModalBtn.innerText = data.get('year-input');
+                mainPagePostWall.innerHTML = ''
+                ifNoResults(posts);
+                for(let i = 0; i < posts.length; i++){
+                    concatenateMainPagePosts(mainPagePostWall, posts, i);
+                }
+                followUnfollow();
+            };
+        }
+        xhr.send(data);
+    });
+};
 
-    const yearModalBtn = document.getElementById('year-modal-btn');
-    const yearModal = document.getElementById('yearModal');
-    yearModalBtn.classList.add('btn-selected');
-    yearModalBtn.removeAttribute('data-bs-target');
-    resetSearchBtn.classList.add('btn-selected');
-    let modal = bootstrap.Modal.getInstance(yearModal);
-    modal.hide();
-    
-    const data = new FormData(yearForm);
-    const url = yearForm.getAttribute('action');
-    const token = document.getElementsByName('csrfmiddleweartoken')[0];
-    
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-CSRFToken', token);
-    xhr.onload = function(){
-        if(this.status === 200){
-            const posts = JSON.parse(this.response);
-            yearModalBtn.innerText = data.get('year-input');
-            mainPagePostWall.innerHTML = ''
-            ifNoResults(posts);
-            for(let i = 0; i < posts.length; i++){
-                concatenateMainPagePosts(mainPagePostWall, posts, i);
-            }
-            followUnfollow();
-        };
-    }
-    xhr.send(data);
-});
 
 
