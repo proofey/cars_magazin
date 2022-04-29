@@ -57,3 +57,11 @@ def year_search(request):
     get_follow_logo(posts, request)
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def reset_search(request):
+    CACHED_SEARCH.clear()
+    posts = Post.objects.all()
+    get_follow_logo(posts, request)
+    serializer = PostSerializer(posts, many=True)
+    return Response(serializer.data)

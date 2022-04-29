@@ -178,6 +178,41 @@ function ifNoResults(posts){
 const mainPagePostWall = document.getElementById('main-page-post-wall');
 const resetSearchBtn = document.getElementById('reset-search-btn');
 
+// Reset Searchbar
+
+const searchMenu = document.getElementById('search-menu');
+resetSearchBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    const url = resetSearchBtn.getAttribute('href');
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onload = function(){
+        if(this.status === 200){
+            const posts = JSON.parse(this.response);
+            searchMenu.innerHTML = ''
+            searchMenu.innerHTML = 
+            `
+            <button id="coupe-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#coupeModal">Coupe</button>
+            <button id="model-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#modelModal">Model</button>
+            <button id="fuel-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#fuelModal">Fuel</button>
+            <button id="transmission-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#transmissionModal">Transmission</button>
+            <button id="price-limit-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#priceLimitModal">Price Limit</button>
+            <button id="location-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#locationModal">Location</button>
+            <button id="year-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#yearModal">Minimum Year</button>
+            `
+            resetSearchBtn.classList.remove('btn-selected');
+            mainPagePostWall.innerHTML = ''
+            ifNoResults(posts);
+            for(let i = 0; i < posts.length; i++){
+                concatenateMainPagePosts(mainPagePostWall, posts, i)
+            };
+            followUnfollow();
+        };
+    };
+    xhr.send();
+});
+
+
 // Search by Coupe
 
 const coupeSearchBtns = document.getElementsByClassName('coupe-search');
