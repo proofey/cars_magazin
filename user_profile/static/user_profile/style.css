@@ -12,3 +12,13 @@
     padding-top: 10px;
     margin-bottom: 30px;
 }
+#finish-registration{
+    margin-bottom: 50px;
+    text-align: center;
+    color: blue;
+}
+#finish-registration-btn{
+    color: blueviolet;
+    font-size: xx-large;
+    font-weight: bold;
+}

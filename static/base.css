@@ -176,3 +176,25 @@ input{
     width: 250px;
     overflow: hidden;
 }
+.myform{
+    margin-top: 50px;
+    padding: 20px;
+}
+#message-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.message-success{
+    color: green;
+}
+.message-error{
+    color: red;
+}
+.sign-log-in{
+    color: #8a2be2;
+    font-weight: bolder;
+}
+.sign-log-in:hover{
+    color: green;
+}

@@ -144,7 +144,7 @@
 
 /* Post form pictures fields */
 #div_id_main_picture, #div_id_picture_2, #div_id_picture_3, #div_id_picture_4, #div_id_picture_5, #div_id_picture_6,
-#div_id_picture_7, #div_id_picture_8, #div_id_picture_9, #div_id_picture_10{
+#div_id_picture_7, #div_id_picture_8, #div_id_picture_9, #div_id_picture_10, #id_image{
     border: solid 1px #8a2be2;
     margin-top: 1rem;
     margin-bottom: 1rem;

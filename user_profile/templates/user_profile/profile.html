@@ -17,24 +17,26 @@ Profile
 
 <div class="container-fluid mt-5">
     <div class="row">
+        {% if profile.first_name is None or profile.last_name is None or profile.phone_number is None %}
+            <h3 id="finish-registration">Please click <a id="finish-registration-btn" href="{% url 'update-profile' %}">Here</a> to finish your registration by adding Name and Phone Number so potencial buyers can contact you.</h3>
+        {% endif %}
         <div class="profile">
             {% thumbnail profile.image "200x200" crop="center" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
             {% endthumbnail %}
             <h1>{{ profile.user }}</h1>
             <div class="profile-btns">
-                <button class="btn mybtn">btn1</button>
-                <button class="btn mybtn">btn2</button>
-                <button class="btn mybtn">btn3</button>
+                <a class="btn mybtn" href="{% url 'update-profile' %}">Update Profile</a>
             </div>
         </div>
         <div class="profile-content">
             <div>
                 <div class="profile-content-btns">
-                    <a href="{% url 'new-post' %}" class="btn mybtn">New Post</a>
+                    {% if profile.first_name is not None and profile.last_name is not None and profile.phone_number is not None %}
+                        <a href="{% url 'new-post' %}" class="btn mybtn">New Post</a>
+                    {% endif %}
                     <a id='myPosts'  class="btn mybtn">My Posts</a>
                     <a id="myFollows" class="btn mybtn">My Follows</a>
-                    <a class="btn mybtn">btn4</a>
                 </div>
                 <div id="postWall" class="row">
                     {% for post in posts %}

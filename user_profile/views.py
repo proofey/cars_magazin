@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from post.models import Post
 from . models import Profile
-from . forms import RegistrationForm, LoginForm
+from . forms import RegistrationForm, LoginForm, UpdateProfileForm
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
 from api.utils import get_follow_logo
@@ -56,4 +56,14 @@ def logout_request(request):
     logout(request)
     return redirect('home-page')
 
-
+def update_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    if request.method == "POST":
+        form = UpdateProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Updated')
+    form = UpdateProfileForm(instance=profile)
+    return render(request, 'user_profile/update_profile.html', {
+        'form': form
+    })
