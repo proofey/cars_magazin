@@ -1,4 +1,5 @@
 from post.models import Post
+from django.core.paginator import Paginator
 
 
 
@@ -124,3 +125,32 @@ def check_cache_for_year(year):
     return CACHED_SEARCH
 
     
+def get_page_obj(page, posts, per_page):
+    paginated_posts = Paginator(posts, per_page=per_page)
+    page_obj = paginated_posts.get_page(page)
+    return page_obj
+
+def check_previous(page_obj):
+    if page_obj.number >= 2:
+        return page_obj.previous_page_number()
+    else:
+        return "No previous page"
+
+def check_next(page_obj):
+    if page_obj.number == page_obj.paginator.num_pages:
+        return "No next page"
+    else:
+        return page_obj.next_page_number()
+
+
+def get_context(serializer, page_obj):
+    context = {
+        'posts': serializer.data,
+        'num_pages': page_obj.paginator.num_pages,
+        'has_next': page_obj.has_next(),
+        'has_previous': page_obj.has_previous(),
+        'next_page_number': check_next(page_obj),
+        'previous_page_number': check_previous(page_obj),
+        'number': page_obj.number
+    }
+    return context

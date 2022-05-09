@@ -125,7 +125,7 @@ body{
     box-shadow: 0px 0px 6px 5px #000000;
 }
 
-.post, .profile-post, .myform, .b-yes, .b-no, .profile, .mybtn{
+.post, .profile-post, .myform, .b-yes, .b-no, .profile, .mybtn, .pagination{
     border: none;
     box-shadow: 0px 0px 6px 2px #8a2be2;
     background-color: white;
@@ -197,4 +197,13 @@ input{
 }
 .sign-log-in:hover{
     color: green;
+}
+#pagination-box{
+    display: flex;
+    justify-content: center;
+}
+.pagination{
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 10px;
 }

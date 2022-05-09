@@ -1,9 +1,11 @@
+from django.http import HttpResponse
 from post.models import Post
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from . serializers import PostSerializer
 from . utils import get_follow_logo, filter_posts_i_follow
+from django.views.decorators.http import require_http_methods
 
 
 @api_view(['GET', 'POST'])
@@ -46,16 +48,16 @@ def post_details_api(request, pk):
 @api_view(["GET"])
 def my_posts(request):
     if request.method == "GET":
-        posts = Post.objects.filter(author=request.user.profile).order_by('-id')
+        posts = Post.objects.filter(author=request.user.profile)
         new_posts = get_follow_logo(posts, request)
         serializer = PostSerializer(new_posts, many=True)   
         return Response(serializer.data)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def posts_i_follow(request):
-    posts = Post.objects.all().order_by('id')
+    posts = Post.objects.all()
     get_follow_logo(posts, request)
     filtered_posts = filter_posts_i_follow(posts, request)
-    serializer = PostSerializer(filtered_posts, many=True)
+    serializer = PostSerializer(filtered_posts, many=True)   
     return Response(serializer.data)

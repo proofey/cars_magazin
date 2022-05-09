@@ -86,10 +86,12 @@ if(myPostsBtn){
 // Displays only my posts in my Profile
 
 if(myPostsBtn){
-    myPostsBtn.addEventListener('click', function(){
+    myPostsBtn.addEventListener('click', function(e){
+        e.preventDefault();
 
+        const url = myPostsBtn.getAttribute('href');
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", '/my-posts', true);
+        xhr.open("GET", url, true);
         xhr.onload = function(){
             if(this.status === 200){
                 const posts = JSON.parse(this.response);
@@ -114,14 +116,15 @@ if(myPostsBtn){
 
 
 if(myFollowsBtn){
-    myFollowsBtn.addEventListener('click', function(){
+    myFollowsBtn.addEventListener('click', function(e){
+        e.preventDefault();
 
+        const url = myFollowsBtn.getAttribute('href');
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/my-follows', true);
+        xhr.open('GET', url, true);
         xhr.onload = function(){
             if(this.status === 200){
                 const posts = JSON.parse(this.response)
-                console.log(posts)
                 postWall.innerHTML = ''
                 myPostsBtn.classList.remove('btn-selected');
                 myFollowsBtn.classList.add('btn-selected');
@@ -170,6 +173,18 @@ function ifNoResults(posts){
         const noResult = document.createElement('h1');
         noResult.innerText = 'No results.Try with different search...'
         mainPagePostWall.appendChild(noResult);
+        resetSearchBtn.classList.remove('btn-selected');
+        searchMenu.innerHTML = ''
+        searchMenu.innerHTML = 
+        `
+        <button id="coupe-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#coupeModal">Coupe</button>
+        <button id="model-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#modelModal">Model</button>
+        <button id="fuel-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#fuelModal">Fuel</button>
+        <button id="transmission-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#transmissionModal">Transmission</button>
+        <button id="price-limit-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#priceLimitModal">Price Limit</button>
+        <button id="location-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#locationModal">Location</button>
+        <button id="year-modal-btn" type="button" class="btn mybtn" data-bs-toggle="modal" data-bs-target="#yearModal">Minimum Year</button>
+        `
     };
 };
 
@@ -182,6 +197,7 @@ const resetSearchBtn = document.getElementById('reset-search-btn');
 // Reset Searchbar
 
 const searchMenu = document.getElementById('search-menu');
+
 if(resetSearchBtn){
     resetSearchBtn.addEventListener('click', function(e){
         e.preventDefault();
@@ -190,7 +206,8 @@ if(resetSearchBtn){
         xhr.open('GET', url, true);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
+                const response = JSON.parse(this.response);
+                const posts = response.posts
                 searchMenu.innerHTML = ''
                 searchMenu.innerHTML = 
                 `
@@ -209,11 +226,14 @@ if(resetSearchBtn){
                     concatenateMainPagePosts(mainPagePostWall, posts, i)
                 };
                 followUnfollow();
+                getRequestPagination(response, url);
             };
         };
         xhr.send();
     });
 };
+
+
 
 
 
@@ -238,14 +258,16 @@ for(let i = 0; i < coupeSearchBtns.length; i++){
         xhr.open('GET', url, true);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
+                const response = JSON.parse(this.response);
+                const posts = response.posts
                 mainPagePostWall.innerHTML = ''
                 ifNoResults(posts);
                 for(let i = 0; i < posts.length; i++){
-                    coupeModalBtn.innerText = posts[i].coupe.type
+                    coupeModalBtn.innerText = `Coupe: ${posts[i].coupe.type}`
                     concatenateMainPagePosts(mainPagePostWall, posts, i);
                 };
                 followUnfollow();
+                getRequestPagination(response, url);
             };
         };
         xhr.send();
@@ -276,14 +298,16 @@ if(modelForm){
         xhr.setRequestHeader('X-CSRFToken', token);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
-                modelModalBtn.innerText = data.get('model-input');
+                const response = JSON.parse(this.response);
+                const posts = response.posts
+                modelModalBtn.innerText = `Model: ${data.get('model-input')}`
                 mainPagePostWall.innerHTML = ''
                 ifNoResults(posts);
                 for(let i = 0; i < posts.length; i++){
                     concatenateMainPagePosts(mainPagePostWall, posts, i);
                 }
                 followUnfollow();
+                postRequestPagination(response, url, data, token);
             };
         }
         xhr.send(data);
@@ -313,14 +337,16 @@ for(let i = 0; i < fuelSearchBtns.length; i++){
         xhr.open('GET', url, true);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
+                const response = JSON.parse(this.response);
+                const posts = response.posts
                 mainPagePostWall.innerHTML = ''
                 ifNoResults(posts);
                 for(let i = 0; i < posts.length; i++){
-                    fuelModalBtn.innerText = posts[i].fuel.type
+                    fuelModalBtn.innerText = `Fuel: ${posts[i].fuel.type}`
                     concatenateMainPagePosts(mainPagePostWall, posts, i);
                 };
                 followUnfollow();
+                getRequestPagination(response, url);
             };
         };
         xhr.send();
@@ -348,14 +374,16 @@ for(let i = 0; i < transmissionSearchBtns.length; i++){
         xhr.open('GET', url, true);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
+                const response = JSON.parse(this.response);
+                const posts = response.posts
                 mainPagePostWall.innerHTML = ''
                 ifNoResults(posts);
                 for(let i = 0; i < posts.length; i++){
-                    transmissionModalBtn.innerText = posts[i].gearbox.type
+                    transmissionModalBtn.innerText = `Transmission: ${posts[i].gearbox.type}`
                     concatenateMainPagePosts(mainPagePostWall, posts, i);
                 };
                 followUnfollow();
+                getRequestPagination(response, url);
             };
         };
         xhr.send();
@@ -386,14 +414,16 @@ if(priceLimitForm){
         xhr.setRequestHeader('X-CSRFToken', token);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
-                priceLimitModalBtn.innerText = data.get('price-limit-input');
+                const response = JSON.parse(this.response);
+                const posts = response.posts
+                priceLimitModalBtn.innerText = `Price Limit: ${data.get('price-limit-input')}`
                 mainPagePostWall.innerHTML = ''
                 ifNoResults(posts);
                 for(let i = 0; i < posts.length; i++){
                     concatenateMainPagePosts(mainPagePostWall, posts, i);
                 }
                 followUnfollow();
+                postRequestPagination(response, url, data, token);
             };
         }
         xhr.send(data);
@@ -425,14 +455,16 @@ if(locationForm){
         xhr.setRequestHeader('X-CSRFToken', token);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
-                locationModalBtn.innerText = data.get('location-input');
+                const response = JSON.parse(this.response);
+                const posts = response.posts
+                locationModalBtn.innerText = `Location: ${data.get('location-input')}`
                 mainPagePostWall.innerHTML = ''
                 ifNoResults(posts);
                 for(let i = 0; i < posts.length; i++){
                     concatenateMainPagePosts(mainPagePostWall, posts, i);
                 }
                 followUnfollow();
+                postRequestPagination(response, url, data, token);
             };
         }
         xhr.send(data);
@@ -465,19 +497,181 @@ if(yearForm){
         xhr.setRequestHeader('X-CSRFToken', token);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
-                yearModalBtn.innerText = data.get('year-input');
+                const response = JSON.parse(this.response);
+                const posts = response.posts
+                yearModalBtn.innerText = `Minimum Year: ${data.get('year-input')}`
                 mainPagePostWall.innerHTML = ''
                 ifNoResults(posts);
                 for(let i = 0; i < posts.length; i++){
                     concatenateMainPagePosts(mainPagePostWall, posts, i);
                 }
                 followUnfollow();
+                postRequestPagination(response, url, data, token);
             };
         }
         xhr.send(data);
     });
 };
 
+const paginationBtns = document.getElementsByClassName('pagination');
+const paginationBox = document.getElementById('pagination-box');
+
+// Pagination function for GET request
+
+function getRequestPagination(response, url){
+    paginationBox.innerHTML = ''
+
+    if(response.has_previous){
+        const getFirst = document.createElement('a');
+        const getPrevious = document.createElement('a');
+        paginationBox.appendChild(getFirst);
+        paginationBox.appendChild(getPrevious);
+        getFirst.setAttribute('href', `${url}1`);
+        getFirst.classList.add('pagination');
+        getPrevious.classList.add('pagination');
+        getPrevious.setAttribute('href', `${url}${response.previous_page_number}`);
+        getFirst.innerText = '<< '
+        getPrevious.innerText = 'Previous '
+
+    };
+    const currentPage = document.createElement('a');
+    paginationBox.appendChild(currentPage);
+    currentPage.setAttribute('href', `${url}${response.number}`);
+    currentPage.classList.add('pagination');
+    currentPage.innerText = `page ${response.number} of ${response.num_pages}`
+    if(response.has_next){
+        const getNext = document.createElement('a');
+        const getLast = document.createElement('a');
+        paginationBox.appendChild(getNext);
+        paginationBox.appendChild(getLast);
+        getNext.setAttribute('href', `${url}${response.next_page_number}`);
+        getLast.setAttribute('href', `${url}${response.num_pages}`);
+        getNext.classList.add('pagination');
+        getLast.classList.add('pagination');
+        getNext.innerText = ' Next'
+        getLast.innerText = ' >>'
+    };
+    
+    for(let i = 0; i < paginationBtns.length; i++){
+        paginationBtns[i].addEventListener('click', function(e){
+            e.preventDefault();
+
+            const paginationUrl = paginationBtns[i].getAttribute('href');
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', paginationUrl, true);
+            xhr.onload = function(){
+                if(this.status === 200){
+                    const response =  JSON.parse(this.response);
+                    const posts = response.posts
+
+                    mainPagePostWall.innerHTML = ''
+                    ifNoResults(posts);
+                    for(let i = 0; i < posts.length; i++){
+                        concatenateMainPagePosts(mainPagePostWall, posts, i)
+                    };
+                    followUnfollow();
+                    getRequestPagination(response, url);
+                };
+            };
+            xhr.send();
+
+        });
+    }
+
+};
+
+// Pagination function for POST request
+
+function postRequestPagination(response, url, data, token){
+    paginationBox.innerHTML = ''
+    
+    if(response.has_previous){
+        const getFirst = document.createElement('a');
+        const getPrevious = document.createElement('a');
+        paginationBox.appendChild(getFirst);
+        paginationBox.appendChild(getPrevious);
+        getFirst.setAttribute('href', `${url}1`);
+        getFirst.classList.add('pagination');
+        getPrevious.classList.add('pagination');
+        getPrevious.setAttribute('href', `${url}${response.previous_page_number}`);
+        getFirst.innerText = '<< '
+        getPrevious.innerText = 'Previous '
+
+    };
+    const currentPage = document.createElement('a');
+    paginationBox.appendChild(currentPage);
+    currentPage.setAttribute('href', `${url}${response.number}`);
+    currentPage.classList.add('pagination');
+    currentPage.innerText = `page ${response.number} of ${response.num_pages}`
+    if(response.has_next){
+        const getNext = document.createElement('a');
+        const getLast = document.createElement('a');
+        paginationBox.appendChild(getNext);
+        paginationBox.appendChild(getLast);
+        getNext.setAttribute('href', `${url}${response.next_page_number}`);
+        getLast.setAttribute('href', `${url}${response.num_pages}`);
+        getNext.classList.add('pagination');
+        getLast.classList.add('pagination');
+        getNext.innerText = ' Next'
+        getLast.innerText = ' >>'
+    };
 
 
+    for(let i = 0; i < paginationBtns.length; i++){
+        paginationBtns[i].addEventListener('click', function(e){
+            e.preventDefault();
+
+            const paginationUrl = paginationBtns[i].getAttribute('href');
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', paginationUrl, true);
+            xhr.setRequestHeader('X-CSRFToken', token);
+            xhr.onload = function(){
+                if(this.status === 200){
+                    const response =  JSON.parse(this.response);
+                    const posts = response.posts
+
+                    mainPagePostWall.innerHTML = ''
+                    ifNoResults(posts);
+                    for(let i = 0; i < posts.length; i++){
+                        concatenateMainPagePosts(mainPagePostWall, posts, i)
+                    };
+                    followUnfollow();
+                    postRequestPagination(response, url, data, token);
+                };
+            };
+            xhr.send(data);
+
+        });
+    }
+};
+
+// Pagination function for home page
+
+function homePagePagination(){
+    for(let i = 0; i < paginationBtns.length; i++){
+        paginationBtns[i].addEventListener('click', function(e){
+            e.preventDefault();
+
+            const url = '/all-posts/'
+            const paginationUrl = paginationBtns[i].getAttribute('href');
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', paginationUrl, true);
+            xhr.onload = function(){
+                if(this.status === 200){
+                   const response =  JSON.parse(this.response);
+                   const posts = response.posts
+
+                   mainPagePostWall.innerHTML = ''
+                   ifNoResults(posts);
+                   for(let i = 0; i < posts.length; i++){
+                       concatenateMainPagePosts(mainPagePostWall, posts, i)
+                   };
+                   followUnfollow();
+                   getRequestPagination(response, url);
+                };
+            };
+            xhr.send();
+        });
+    };
+};
+homePagePagination();

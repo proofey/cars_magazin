@@ -118,3 +118,6 @@ class Post(models.Model):
                 return self.result
         self.result = "🤍"
         return self.result
+
+    class Meta:
+        ordering = ['-created']

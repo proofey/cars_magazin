@@ -16,7 +16,7 @@ HOME
     <div class="container-fluid mt-5">
             {% include 'search/search_bar.html' %}
         <div id="main-page-post-wall" class="row">
-            {% for post in posts %}
+            {% for post in page_obj.object_list %}
                 <div class="post">
                     {% include 'post/post.html' %}
                 </div>
@@ -31,5 +31,19 @@ HOME
         {% include 'search/year_search_modal.html' %}
     </div>
 {% endblock content %}
+
+
+{% block pagination %}
+    {% if page_obj.has_previous %}
+        <a class="pagination" href="{% url 'all-posts' %}">&lt&lt</a>
+        <a class="pagination" href="{% url 'all-posts' page_obj.previous_page_number %}">Previous</a>
+    {% endif %}
+    <a class="pagination" href="">page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+    {% if page_obj.has_next %}
+        <a class="pagination" href="{% url 'all-posts' page_obj.next_page_number %}">Next</a>
+        <a class="pagination" href="{% url 'all-posts' page_obj.paginator.num_pages %}">&gt&gt</a>
+    {% endif %}
+{% endblock pagination %}
+
 
 {% block js %}{% endblock js %}

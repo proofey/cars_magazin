@@ -35,8 +35,8 @@ Profile
                     {% if profile.first_name is not None and profile.last_name is not None and profile.phone_number is not None %}
                         <a href="{% url 'new-post' %}" class="btn mybtn">New Post</a>
                     {% endif %}
-                    <a id='myPosts'  class="btn mybtn">My Posts</a>
-                    <a id="myFollows" class="btn mybtn">My Follows</a>
+                    <a id='myPosts' href="{% url 'my-posts' %}"  class="btn mybtn">My Posts</a>
+                    <a id="myFollows" href="{% url 'my-follows' %}" class="btn mybtn">My Follows</a>
                 </div>
                 <div id="postWall" class="row">
                     {% for post in posts %}
