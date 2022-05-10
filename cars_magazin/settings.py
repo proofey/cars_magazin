@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'user_profile',
     'post',
     'api',
-    'search'
+    'search',
+    'contact_us'
 ]
 
 MIDDLEWARE = [

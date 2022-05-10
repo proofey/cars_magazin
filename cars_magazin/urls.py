@@ -24,7 +24,8 @@ urlpatterns = [
     path('', include('user_profile.urls')),
     path('', include('post.urls')),
     path('', include('api.urls')),
-    path('', include('search.urls'))
+    path('', include('search.urls')),
+    path('', include('contact_us.urls'))
 ]
 
 if settings.DEBUG:
