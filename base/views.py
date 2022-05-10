@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from post.models import Post, Coupe, Fuel, Gearbox, NumberOfDoors
-from api.utils import get_follow_logo
+from post.utils import get_follow_logo
 from search.utils import CACHED_SEARCH
 from search.utils import get_page_obj
 

@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect
 from . forms import PostForm
 from . models import Post
 from user_profile.models import Profile
+from django.contrib.auth.decorators import login_required
 
 
-
+@login_required
 def new_post(request):
     form = PostForm()
 
@@ -23,6 +24,7 @@ def new_post(request):
         'form': form
     })
 
+@login_required
 def update_post(request, id):
     post = Post.objects.get(pk=id)
     form = PostForm(instance=post)
@@ -49,7 +51,7 @@ def post_details(request, id):
         'post': post
     })
 
-
+@login_required
 def delete_post(request, id):
     post = Post.objects.get(pk=id)
 

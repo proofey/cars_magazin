@@ -26,12 +26,16 @@ function followUnfollow(){
             const xhr = new XMLHttpRequest();
             xhr.open("GET", url, true);
             xhr.onload = function(){
-                if(this.responseText === "follow added"){
-                    followBtn[i].innerText = '💜'
-                }else if(this.responseText === "follow removed"){
-                    followBtn[i].innerText = '🤍'
-                }
-            }
+                if(this.status === 200){
+                    if(this.responseText === "follow added"){
+                        followBtn[i].innerText = '💜'
+                    }else if(this.responseText === "follow removed"){
+                        followBtn[i].innerText = '🤍'
+                    }
+                }else{
+                    window.location = 'login/'
+                };
+            };
             xhr.send();
         });
     
@@ -94,7 +98,8 @@ if(myPostsBtn){
         xhr.open("GET", url, true);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response);
+                const response = JSON.parse(this.response);
+                const posts = response.posts
                 postWall.innerHTML = ''
                 myFollowsBtn.classList.remove('btn-selected');
                 myPostsBtn.classList.add('btn-selected');
@@ -102,6 +107,7 @@ if(myPostsBtn){
                     concatenateProfilePosts(postWall, posts, i);
                 }
                 followUnfollow();
+                getRequestPagination(response, url);
             };
         };
         xhr.send();
@@ -124,7 +130,8 @@ if(myFollowsBtn){
         xhr.open('GET', url, true);
         xhr.onload = function(){
             if(this.status === 200){
-                const posts = JSON.parse(this.response)
+                const response = JSON.parse(this.response);
+                const posts = response.posts
                 postWall.innerHTML = ''
                 myPostsBtn.classList.remove('btn-selected');
                 myFollowsBtn.classList.add('btn-selected');
@@ -132,6 +139,7 @@ if(myFollowsBtn){
                     concatenateProfilePosts(postWall, posts, i);
                 }
                 followUnfollow();
+                getRequestPagination(response, url);
             }
         }
         xhr.send();
@@ -518,6 +526,26 @@ const paginationBox = document.getElementById('pagination-box');
 
 // Pagination function for GET request
 
+
+// Check if you are on main page or profile page 
+
+function indicateWall(posts){
+    if(mainPagePostWall){
+        mainPagePostWall.innerHTML = ''
+        ifNoResults(posts);
+        for(let i = 0; i < posts.length; i++){
+            concatenateMainPagePosts(mainPagePostWall, posts, i)
+        };
+    }else if(postWall){
+        postWall.innerHTML = ''
+        myFollowsBtn.classList.remove('btn-selected');
+        myPostsBtn.classList.add('btn-selected');
+        for(let i = 0; i < posts.length; i++){
+            concatenateProfilePosts(postWall, posts, i);
+        };
+    };
+};
+
 function getRequestPagination(response, url){
     paginationBox.innerHTML = ''
 
@@ -563,12 +591,7 @@ function getRequestPagination(response, url){
                 if(this.status === 200){
                     const response =  JSON.parse(this.response);
                     const posts = response.posts
-
-                    mainPagePostWall.innerHTML = ''
-                    ifNoResults(posts);
-                    for(let i = 0; i < posts.length; i++){
-                        concatenateMainPagePosts(mainPagePostWall, posts, i)
-                    };
+                    indicateWall(posts);
                     followUnfollow();
                     getRequestPagination(response, url);
                 };
@@ -642,10 +665,10 @@ function postRequestPagination(response, url, data, token){
             xhr.send(data);
 
         });
-    }
+    };
 };
 
-// Pagination function for home page
+// Pagination function for the landing rendered page
 
 function homePagePagination(){
     for(let i = 0; i < paginationBtns.length; i++){
@@ -658,16 +681,11 @@ function homePagePagination(){
             xhr.open('GET', paginationUrl, true);
             xhr.onload = function(){
                 if(this.status === 200){
-                   const response =  JSON.parse(this.response);
-                   const posts = response.posts
-
-                   mainPagePostWall.innerHTML = ''
-                   ifNoResults(posts);
-                   for(let i = 0; i < posts.length; i++){
-                       concatenateMainPagePosts(mainPagePostWall, posts, i)
-                   };
-                   followUnfollow();
-                   getRequestPagination(response, url);
+                    const response =  JSON.parse(this.response);
+                    const posts = response.posts
+                    indicateWall(posts);
+                    followUnfollow();
+                    getRequestPagination(response, url);
                 };
             };
             xhr.send();
@@ -675,3 +693,29 @@ function homePagePagination(){
     };
 };
 homePagePagination();
+
+const profilePagitanionBtns = document.getElementsByClassName('profile-pagination');
+
+function profilePagePagination(){
+    for(let i = 0; i < profilePagitanionBtns.length; i++){
+        profilePagitanionBtns[i].addEventListener('click', function(e){
+            e.preventDefault();
+
+            const url = '/my-posts/'
+            const paginationUrl = profilePagitanionBtns[i].getAttribute('href');
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', paginationUrl, true);
+            xhr.onload = function(){
+                if(this.status === 200){
+                    const response =  JSON.parse(this.response);
+                    const posts = response.posts
+                    indicateWall(posts);
+                    followUnfollow();
+                    getRequestPagination(response, url);
+                };
+            };
+            xhr.send();
+        });
+    };
+};
+profilePagePagination();

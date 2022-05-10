@@ -2,7 +2,6 @@ from post.models import Post
 from django.core.paginator import Paginator
 
 
-
 CACHED_SEARCH = []
 
 

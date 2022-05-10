@@ -16,7 +16,7 @@ updateProfileForm.addEventListener('submit', function(e){
             message.classList.add('message-success')
             message.innerText = 'Profile Updated'
             setTimeout(function(){
-                window.location = '/profile'
+                window.location = '/profile/'
             },800)
         }
     }

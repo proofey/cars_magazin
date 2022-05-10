@@ -1,6 +1,6 @@
 from api.serializers import PostSerializer
-from api.utils import get_follow_logo
 from . utils import *
+from post.utils import get_follow_logo
 from django.views.decorators.http import require_http_methods
 from django.http.response import JsonResponse
 

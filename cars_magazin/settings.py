@@ -143,3 +143,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%B %d, %Y, %l:%M %p",
 }
+
+LOGIN_URL = 'login'
+REDIRECT_URL = 'home-page'

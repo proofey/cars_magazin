@@ -39,7 +39,7 @@ Profile
                     <a id="myFollows" href="{% url 'my-follows' %}" class="btn mybtn">My Follows</a>
                 </div>
                 <div id="postWall" class="row">
-                    {% for post in posts %}
+                    {% for post in page_obj.object_list %}
                         <div class="profile-post">
                             {% include 'post/post.html' %}
                         </div>
@@ -52,6 +52,17 @@ Profile
 
 {% endblock content %}
 
+{% block pagination %}
+    {% if page_obj.has_previous %}
+        <a class="profile-pagination" href="{% url 'my-posts' %}">&lt&lt</a>
+        <a class="profile-pagination" href="{% url 'my-posts-posts' page_obj.previous_page_number %}">Previous</a>
+    {% endif %}
+        <a class="profile-pagination" href="">page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+    {% if page_obj.has_next %}
+        <a class="profile-pagination" href="{% url 'my-posts' page_obj.next_page_number %}">Next</a>
+        <a class="profile-pagination" href="{% url 'my-posts' page_obj.paginator.num_pages %}">&gt&gt</a>
+    {% endif %}
+{% endblock pagination %}
 
 {% block js %}
     
