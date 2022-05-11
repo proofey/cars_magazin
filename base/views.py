@@ -13,7 +13,7 @@ def home(request, page=1):
     coupes = Coupe.objects.all()
     posts = Post.objects.all()
     get_follow_logo(posts, request)
-    page_obj = get_page_obj(page, posts, per_page=2)
+    page_obj = get_page_obj(page, posts, per_page=8)
 
     return render(request, 'base/home_page.html', {
         'posts': posts,

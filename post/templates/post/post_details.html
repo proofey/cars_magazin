@@ -81,8 +81,7 @@ Post Details
         </div>
         <div class="contact">
             <h6><b>Located at: </b> {{ post.located_at }}</h6>
-            <h6><b>{{ post.author }}
-            <h6><b>For Contact: </b>{{ post.author.phone_number }}</h6>
+            <h6><b>For Contact: </b>{{ post.author.get_name }} | Phone: {{ post.author.phone_number }}</h6>
         </div>
     </div>
 </div>

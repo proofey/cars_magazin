@@ -21,7 +21,14 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user}"
 
+    def get_name(self):
+        if self.first_name or self.last_name:
+            return f"{self.first_name} {self.last_name}"
+        else:
+            return self.user
+
 @receiver(post_save, sender=User)
 def post_save_new_profile(sender, instance, created, *args, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+

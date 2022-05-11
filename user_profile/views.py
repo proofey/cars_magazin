@@ -18,7 +18,7 @@ def my_profile(request, page=1):
     profile = Profile.objects.get(user=request.user)
     posts = Post.objects.filter(author=request.user.profile).order_by('-id')
     get_follow_logo(posts, request)
-    page_obj = get_page_obj(page, posts, per_page=2)
+    page_obj = get_page_obj(page, posts, per_page=4)
 
     return render(request, 'user_profile/profile.html', {
         'profile': profile,
@@ -82,7 +82,7 @@ def update_profile(request):
 def my_posts(request, page=1):
     posts = Post.objects.filter(author=request.user.profile)
     get_follow_logo(posts, request)
-    page_obj = get_page_obj(page, posts, per_page=2)
+    page_obj = get_page_obj(page, posts, per_page=4)
     serializer = PostSerializer(page_obj.object_list, many=True)
     context = get_context(serializer, page_obj)
     return JsonResponse(context)
@@ -93,7 +93,7 @@ def my_posts(request, page=1):
 def posts_i_follow(request, page=1):
     posts = filter_posts_i_follow(request, posts=Post.objects.all())
     get_follow_logo(posts, request)
-    page_obj = get_page_obj(page, posts, per_page=2)
+    page_obj = get_page_obj(page, posts, per_page=4)
     serializer = PostSerializer(page_obj.object_list, many=True)
     context = get_context(serializer, page_obj)
     return JsonResponse(context)
